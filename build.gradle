@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClassName = 'me.inertia.ComplexFractals.Main'
+    applicationDefaultJvmArgs = ['-Dgreeting.language=en']
+    executableDir = 'custom_bin_dir'
+}
+
+dependencies {
+    // Dependency on local binaries
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.github.vmicelli:jcomplex:1.0'
+}
