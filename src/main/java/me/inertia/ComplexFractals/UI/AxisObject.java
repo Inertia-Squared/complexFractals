@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
+import static me.inertia.ComplexFractals.Main.offsetX;
+import static me.inertia.ComplexFractals.Main.scale;
+
 public class AxisObject {
     float targetIntervals=10f;
     PApplet a;
@@ -51,11 +54,11 @@ public class AxisObject {
             if(i!=0) {
                 if (toggle) {
                     toggle = false;
-                    a.line((float) x, -10 + (float) y, (float) x, (float) (10 + y));
-                    a.text(setSignificanDigits(((x - a.width / 2d)) * Main.scale, 2), (float) x, (float) (y + 25));
+                    a.line((float) (x), -10 + (float) y, (float) (x), (float) (10 + y));
+                    a.text(setSignificanDigits(((x - a.width / 2d)) * Main.scale, 2), (float) (x), (float) (y + 25));
                 } else {
                     toggle = true;
-                    a.line((float) x, (float) (-5 + y), (float) x, (float) (5 + y));
+                    a.line((float) (x), (float) (-5 + y), (float) (x), (float) (5 + y));
                 }
             }
         }

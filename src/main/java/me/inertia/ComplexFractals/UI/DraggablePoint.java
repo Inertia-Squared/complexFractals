@@ -12,7 +12,7 @@ public class DraggablePoint {
     public String label;
     protected Color fill;
     protected PApplet a;
-    private boolean dragging = false;
+    protected boolean dragging = false;
 
     public DraggablePoint(String label) {
         this(0,0,10,label, Color.lightGray);
@@ -88,6 +88,6 @@ public class DraggablePoint {
         //given ellipse render mode is CENTER
         //System.out.println(x/Main.scale);
         //System.out.println(a.mouseX*Main.scale);
-        return (a.mousePressed&&PApplet.dist((float) (a.mouseX-a.width/2f), (float) (a.mouseY-a.height/2f), (float) (x/Main.scale), (float) (y/Main.scale))<=radius);
+        return (a.mousePressed&&PApplet.dist((float) (a.mouseX-a.width/2f), (float) (a.mouseY-a.height/2f), (float) (x/Main.scale), (float) (y/Main.scale))<=radius*1.1f);//extra radius to make easier to grab
     }
 }
