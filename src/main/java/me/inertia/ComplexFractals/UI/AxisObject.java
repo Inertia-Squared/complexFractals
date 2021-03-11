@@ -24,7 +24,7 @@ public class AxisObject {
     public void generateAxis(){
         float strokeWeight = a.g.strokeWeight;
         int strokeColor = a.g.strokeColor;
-        a.strokeWeight(3);
+        a.strokeWeight(1);
         a.stroke(125);
         a.line(0,a.height/2f,a.width,a.height/2f);
         a.line(a.width/2f,0,a.width/2f,a.height);

@@ -2,9 +2,7 @@ package me.inertia.ComplexFractals;
 
 import me.inertia.ComplexFractals.Iterations.IterativePointSet;
 import me.inertia.ComplexFractals.UI.AxisObject;
-import me.inertia.ComplexFractals.UI.DraggablePoint;
 import processing.core.PApplet;
-import com.vm.jcomplex.Complex;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
@@ -14,10 +12,11 @@ public class Main extends PApplet {
     IterativePointSet draggablePoint;
     public static PApplet applet;
     AxisObject primaryAxis;
-    public static double scale = 0.002d;
+    public static double scale = 0.003d;
     public static double offsetX = 0d;
     public static double offsetY = 0d;
     static boolean[] keys = new boolean[10000];
+    public static boolean fastMode = false;
 
     @Override
     public void keyPressed(KeyEvent event) {
@@ -43,28 +42,47 @@ public class Main extends PApplet {
 
     public void settings(){
         fullScreen(FX2D);
+
     }
     public void setup(){
         applet = this; //must go first
-
+        frameRate(6000);
         ellipseMode(CENTER);
+        rectMode(CORNER);
         textAlign(CENTER);
         draggablePoint = new IterativePointSet(0.5f,0.5f,20,"P", Color.cyan);
         primaryAxis = new AxisObject(20f);
+
+        background(36);
     }
     public void draw(){
         //System.out.println(scale);
+
         handleKeys();
-        background(36);
+        if(!fastMode) background(36);
         primaryAxis.generateAxis();
 
         translate(width/2f,height/2f);
         //do Non-Static UI rendering here, to make math easier for later
-        draggablePoint.animateSinCos();
-        draggablePoint.updateSelf();
-        draggablePoint.iteratePoints(20,true);
+            draggablePoint.animateSinCos();
+            draggablePoint.updateSelf();
+            draggablePoint.iteratePoints(25, true);
+            if(!fastMode)draggablePoint.renderPoints();
+            if(draggablePoint.mag>2&&!mousePressed){
+                saveFrame("sc####.png");
+                exit();
+            }
         translate(-width/2f,-height/2f);
+            if(fastMode) {
+                fill(0);
+                rect(0, 0, 60, 35);
+            }
+        fill(255);
+        text(frameRate,30,15);
+        text(Math.round((draggablePoint.mag/2f)*1000f)/10f+"%",30,30);
     }
+    double rad = 0;
+
 
     private static void handleKeys(){
         if(keys[87])offsetY-=0.01f/scale;
