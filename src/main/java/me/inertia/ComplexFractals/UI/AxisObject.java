@@ -8,8 +8,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-import static me.inertia.ComplexFractals.Main.offsetX;
-import static me.inertia.ComplexFractals.Main.scale;
+import static me.inertia.ComplexFractals.Main.*;
 
 public class AxisObject {
     float targetIntervals=10f;
@@ -26,8 +25,8 @@ public class AxisObject {
         int strokeColor = a.g.strokeColor;
         a.strokeWeight(1);
         a.stroke(125);
-        a.line(0,a.height/2f,a.width,a.height/2f);
-        a.line(a.width/2f,0,a.width/2f,a.height);
+        a.line(0+offsetX,a.height/2f+offsetY,a.width+offsetX,a.height/2f+offsetY);
+        a.line(a.width/2f+offsetX,0+offsetY,a.width/2f+offsetX,a.height+offsetY);
         generateBlips();
         a.strokeWeight(strokeWeight);
         a.stroke(strokeColor);
@@ -54,11 +53,11 @@ public class AxisObject {
             if(i!=0) {
                 if (toggle) {
                     toggle = false;
-                    a.line((float) (x), -10 + (float) y, (float) (x), (float) (10 + y));
-                    a.text(setSignificanDigits(((x - a.width / 2d)) * Main.scale, 2), (float) (x), (float) (y + 25));
+                    a.line((float) (x)+offsetX, -10 + (float) y+offsetY, (float) (x)+offsetX, (float) (10 + y)+offsetY);
+                    a.text(setSignificanDigits(((x - a.width / 2d)) * Main.scale, 2), (float) (x)+offsetX, (float) (y + 25)+offsetY);
                 } else {
                     toggle = true;
-                    a.line((float) (x), (float) (-5 + y), (float) (x), (float) (5 + y));
+                    a.line((float) (x)+offsetX, (float) (-5 + y)+offsetY, (float) (x)+offsetX, (float) (5 + y)+offsetY);
                 }
             }
         }
@@ -69,11 +68,11 @@ public class AxisObject {
             if(i!=0) {
                 if (toggle) {
                     toggle = false;
-                    a.line((float) x, -10 + (float) y, (float) x, (float) (10 + y));
-                    a.text(setSignificanDigits(((x - a.width / 2d)) * Main.scale, 2), (float) x, (float) (y + 25));
+                    a.line((float) x+offsetX, -10 + (float) y+offsetY, (float) x+offsetX, (float) (10 + y)+offsetY);
+                    a.text(setSignificanDigits(((x - a.width / 2d)) * Main.scale, 2), (float) x+offsetX, (float) (y + 25)+offsetY);
                 } else {
                     toggle = true;
-                    a.line((float) x, (float) (-5 + y), (float) x, (float) (5 + y));
+                    a.line((float) x+offsetX, (float) (-5 + y)+offsetY, (float) x+offsetX, (float) (5 + y)+offsetY);
                 }
             }
         }
@@ -84,11 +83,11 @@ public class AxisObject {
             double y = i * (Math.round(a.width / 200d) * 100d) / (((double) targetIntervals)) + a.height / 2d;
             if (toggle) {
                 toggle = false;
-                a.line((float) (x - 10), (float) y, (float) x + 10, (float) (y));
-                a.text(setSignificanDigits((-(y - a.height / 2d)) * Main.scale, 2), (float) (x - 25d), (float) (y));
+                a.line((float) (x - 10)+offsetX, (float) y+offsetY, (float) x + 10+offsetX, (float) (y)+offsetY);
+                a.text(setSignificanDigits((-(y - a.height / 2d)) * Main.scale, 2), (float) (x - 25d)+offsetX, (float) (y)+offsetY);
             } else {
                 toggle = true;
-                a.line((float) x - 5, (float) (y), (float) x + 5, (float) (y));
+                a.line((float) x - 5+offsetX, (float) (y)+offsetY, (float) x + 5+offsetX, (float) (y)+offsetY);
             }
         }
         }
@@ -99,11 +98,11 @@ public class AxisObject {
                 double y = i * (Math.round(a.width / 200d) * 100d) / (((double) targetIntervals)) + a.height / 2d;
                 if (toggle) {
                     toggle = false;
-                    a.line((float) (x - 10), (float) y, (float) x + 10, (float) (y));
-                    a.text(setSignificanDigits((-(y - a.height / 2d)) * Main.scale, 2), (float) (x - 25d), (float) (y));
+                    a.line((float) (x - 10)+offsetX, (float) y+offsetY, (float) x + 10+offsetX, (float) (y)+offsetY);
+                    a.text(setSignificanDigits((-(y - a.height / 2d)) * Main.scale, 2), (float) (x - 25d)+offsetX, (float) (y)+offsetY);
                 } else {
                     toggle = true;
-                    a.line((float) x - 5, (float) (y), (float) x + 5, (float) (y));
+                    a.line((float) x - 5+offsetX, (float) (y)+offsetY, (float) x + 5+offsetX, (float) (y)+offsetY);
                 }
             }
         }

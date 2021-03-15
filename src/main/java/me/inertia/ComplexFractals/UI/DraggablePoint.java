@@ -8,11 +8,11 @@ import java.awt.*;
 
 public class DraggablePoint {
     protected float x,y;
-    protected int radius = 10;
+    public int radius = 10;
     public String label;
-    protected Color fill;
-    protected PApplet a;
-    protected boolean dragging = false;
+    public Color fill;
+    public PApplet a;
+    public boolean dragging = false;
 
     public DraggablePoint(String label) {
         this(0,0,10,label, Color.lightGray);
@@ -70,7 +70,7 @@ public class DraggablePoint {
         a.fill(fill.getRGB());
         a.ellipse(x/(float) Main.scale,y/(float) Main.scale,radius,radius);
         a.fill(fill.darker().darker().darker().darker().getRGB()); //darker, yet darker
-        a.text(label,x/(float) Main.scale,(y/(float)Main.scale)+radius/4);
+        a.text(label,x/(float) Main.scale,(y/(float)Main.scale)+radius/4f);
         a.fill(prevFill);
     }
 
@@ -80,7 +80,7 @@ public class DraggablePoint {
     }
 
     private PVector getDragLocation(){
-        return new PVector((a.mouseX-a.width/2f), (a.mouseY-a.height/2f));
+        return new PVector((a.mouseX-a.width/2f)-Main.offsetX, (a.mouseY-a.height/2f)-Main.offsetY);
         //return new PVector(0,0);
     }
 
@@ -88,6 +88,6 @@ public class DraggablePoint {
         //given ellipse render mode is CENTER
         //System.out.println(x/Main.scale);
         //System.out.println(a.mouseX*Main.scale);
-        return (a.mousePressed&&PApplet.dist((float) (a.mouseX-a.width/2f), (float) (a.mouseY-a.height/2f), (float) (x/Main.scale), (float) (y/Main.scale))<=radius*1.1f);//extra radius to make easier to grab
+        return (a.mousePressed&&PApplet.dist( (a.mouseX-a.width/2f-Main.offsetX),  (a.mouseY-a.height/2f-Main.offsetY), (float) (x/Main.scale), (float) (y/Main.scale))<=radius*1.1f);//extra radius to make easier to grab
     }
 }
