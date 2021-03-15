@@ -16,7 +16,7 @@ public class Main extends PApplet {
     public static double offsetX = 0d;
     public static double offsetY = 0d;
     static boolean[] keys = new boolean[10000];
-    public static boolean fastMode = false;
+    public static boolean fastMode = true;
 
     @Override
     public void keyPressed(KeyEvent event) {
@@ -46,14 +46,14 @@ public class Main extends PApplet {
     }
     public void setup(){
         applet = this; //must go first
-        frameRate(6000);
+        frameRate(240);
         ellipseMode(CENTER);
         rectMode(CORNER);
         textAlign(CENTER);
         draggablePoint = new IterativePointSet(0.5f,0.5f,20,"P", Color.cyan);
         primaryAxis = new AxisObject(20f);
 
-        background(36);
+        background(56);
     }
     public void draw(){
         //System.out.println(scale);
@@ -66,7 +66,7 @@ public class Main extends PApplet {
         //do Non-Static UI rendering here, to make math easier for later
             draggablePoint.animateSinCos();
             draggablePoint.updateSelf();
-            draggablePoint.iteratePoints(25, true);
+            draggablePoint.iteratePoints(20, true);
             if(!fastMode)draggablePoint.renderPoints();
             if(draggablePoint.mag>2&&!mousePressed){
                 saveFrame("sc####.png");

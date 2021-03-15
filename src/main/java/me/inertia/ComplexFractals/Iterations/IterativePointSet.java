@@ -8,6 +8,10 @@ import processing.core.PVector;
 import java.awt.*;
 import java.util.ArrayList;
 
+//TODO
+// optimise the heck outta this
+// add GPU compute for iterations, localise non-static variables to stop over-reads/writes (maybe create manager function [or class] to assign tasks?)
+
 public class IterativePointSet extends DraggablePoint {
     private boolean mandel = false;
 
@@ -58,7 +62,7 @@ public class IterativePointSet extends DraggablePoint {
         }
         if(count>=360*(mag*speedMult)){
             count = 0;
-            mag+=0.005d;//ring step value, smaller means higher quality but slower
+            mag+=0.0025d;//ring step value, smaller means higher quality but slower
         }
    }
 
@@ -66,6 +70,7 @@ public class IterativePointSet extends DraggablePoint {
     ArrayList<PVector> points = new ArrayList<>();
    double pow = 2d;
    public void iteratePoints(int depth, boolean mandel){
+       int iterations = 1;
         this.mandel = mandel;
        // System.out.println("NEW SET");
         Complex number = new Complex(x,y);
@@ -73,12 +78,13 @@ public class IterativePointSet extends DraggablePoint {
         if(dragging)mag = number.abs();
         float prevx = x;
         float prevy = y;
+        double dist = 0;
        int prevFill = a.g.fillColor;
        for (int i = 0; i < depth; i++) {
            if(mandel){
                //number = number.pow(2d);
                number = new Complex(number.pow(pow).getReal(),number.pow(pow).getImaginary());
-               //number = new Complex(number.pow(number.getReal()).getReal(),number.pow(number.getImaginary()).getReal());
+               //number = new Complex(number.pow(number.getReal()).getReal(),number.pow(number.getImaginary()).getImaginary());
                number = number.add(new Complex(x,y));
            }
            else{number = new Complex(number.pow(2).getReal(),number.pow(2).getImaginary());}
@@ -87,6 +93,9 @@ public class IterativePointSet extends DraggablePoint {
           // if(toggle) {
             //   System.out.println(x+", "+number.getImaginary());
            //}
+           iterations = i;
+           dist = number.abs();
+           if(dist>2d) break;
            if(!Main.fastMode) {
                a.fill(fill.darker().darker().getRGB());
                a.ellipse(x / (float) Main.scale, y / (float) Main.scale, radius, radius);
@@ -97,14 +106,19 @@ public class IterativePointSet extends DraggablePoint {
        }
 
        //System.out.println(number.abs());
+
        if(!Main.fastMode) {
-           if (number.abs() < 2d) {
+           if (dist <= 2d) {
                points.add(new PVector(x, y));
            }
        }else {
-           if (number.abs() < 2d) {
-               a.point(x / (float) Main.scale, y / (float) Main.scale);
-           }
+               if (dist <= 2d) {
+                   a.point(x / (float) Main.scale, y / (float) Main.scale);
+               } else {
+                   a.stroke(56,56,(float) ((255d*iterations)/(depth))+56f);//redundant, need to check iterations internally, will slow down program
+                   a.point(x / (float) Main.scale, y / (float) Main.scale);
+                   a.stroke(0);
+               }
        }
        a.fill(prevFill);
        //toggle = false;
