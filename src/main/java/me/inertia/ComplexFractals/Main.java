@@ -2,14 +2,14 @@ package me.inertia.ComplexFractals;
 
 import me.inertia.ComplexFractals.Iterations.IterativePointSet;
 import me.inertia.ComplexFractals.UI.AxisObject;
-import org.lwjgl.opengl.GL;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
+import processing.opengl.PShader;
+
 
 import java.awt.*;
 
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class Main extends PApplet {
     IterativePointSet draggablePoint;
@@ -26,6 +26,8 @@ public class Main extends PApplet {
     public static int targetFrameRate = 6;
     int depth = 250;
     public static int depthMag;
+
+    PShader myShader;
 
     @Override
     public void keyPressed(KeyEvent event) {
@@ -69,7 +71,6 @@ public class Main extends PApplet {
         depthMag = round((float) Math.log10(depth));
         draggablePoint = new IterativePointSet(0.5f,0.5f,20,"P", Color.cyan);
         primaryAxis = new AxisObject(20f);
-        //GL.createCapabilities();
         background(56);
     }
 
@@ -99,6 +100,7 @@ public class Main extends PApplet {
                 exit();
             }
        // translate((-width/2f)-offsetX,(-height/2f)+offsetY);
+
 
 
     }

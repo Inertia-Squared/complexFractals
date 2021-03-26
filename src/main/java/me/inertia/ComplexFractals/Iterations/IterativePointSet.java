@@ -4,10 +4,7 @@ import com.vm.jcomplex.Complex;
 import me.inertia.ComplexFractals.Main;
 import me.inertia.ComplexFractals.UI.DraggablePoint;
 import processing.core.PVector;
-import org.lwjgl.*;
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
-import org.lwjgl.system.*;
+
 
 import java.nio.*;
 import java.awt.*;
@@ -16,11 +13,7 @@ import java.util.HashMap;
 
 import static me.inertia.ComplexFractals.Main.renderPointer;
 import static me.inertia.ComplexFractals.Main.testRate;
-import static org.lwjgl.glfw.Callbacks.*;
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryStack.*;
-import static org.lwjgl.system.MemoryUtil.*;
+
 
 //TODO
 // optimise the heck outta this
@@ -167,7 +160,7 @@ public class IterativePointSet extends DraggablePoint {
         count++;
        reProcesssSinCos();
    }
-       a.fill(prevFill);
+//       a.fill(prevFill);
        //toggle = false;
 
       // count+=tests-1;
